@@ -8,3 +8,4 @@ deploy:
   app: microservice-study-frontend
   on:
     repo: lucasdornelles/MicroserviceStudyFrontend
+  skip_cleanup: true
