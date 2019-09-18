@@ -9,3 +9,4 @@ deploy:
   on:
     repo: lucasdornelles/MicroserviceStudyFrontend
   skip_cleanup: true
+  local_dir: build
