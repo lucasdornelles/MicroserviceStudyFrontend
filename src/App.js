@@ -2,6 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+function IsProductionCode(props) {
+  const developmentEnv = process.env.NODE_ENV === 'development';
+  if (developmentEnv){
+    return <p>development</p>;
+  } else{
+    return <p>production</p>;
+  }
+}
+
 function App() {
   return (
     <div className="App">
@@ -10,6 +19,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <IsProductionCode />      
         <a
           className="App-link"
           href="https://reactjs.org"
