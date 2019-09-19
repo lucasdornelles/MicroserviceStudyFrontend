@@ -11,7 +11,7 @@ _heroku_deploy_apikey=`echo "${HEROKU_API_KEY}" | base64`
 _heroku_deploy_createSlugResponse=$(curl -X POST \
 -H "Content-Type: application/json" \
 -H "Accept: application/vnd.heroku+json; version=3" \
--H "Authorization: ${_heroku_deploy_apiKey}" \
+-H "Authorization: Bearer ${_heroku_deploy_apiKey}" \
 -d '{"process_types":{ "web": "node-v0.10.20-linux-x64/bin/node web.js" }}' \
 -n https://api.heroku.com/apps/${HEROKU_APP_NAME_STAGE}/slugs)
 
@@ -30,7 +30,7 @@ function deployToHeroku { #Args: application name
   curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.heroku+json; version=3" \
-  -H "Authorization: ${_heroku_deploy_apiKey}" \
+  -H "Authorization: Bearer ${_heroku_deploy_apiKey}" \
   -d "{\"slug\":\"${_heroku_deploy_slugId}\"}" \
   -n https://api.heroku.com/apps/$1/releases
 }
