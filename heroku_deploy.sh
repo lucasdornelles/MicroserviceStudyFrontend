@@ -21,6 +21,9 @@ function _heroku_deploy_parseField {
 _heroku_deploy_blobUrl=$(_heroku_deploy_parseField "url" "'${_heroku_deploy_createSlugResponse}'")
 _heroku_deploy_blobMethod=$(_heroku_deploy_parseField "method" "'${_heroku_deploy_createSlugResponse}'")
 _heroku_deploy_slugId=$(_heroku_deploy_parseField "id" "'${_heroku_deploy_createSlugResponse}'")
+echo ${_heroku_deploy_blobMethod}
+echo ${_heroku_deploy_slugId}
+echo ${_heroku_deploy_blobUrl}
 
 echo "Uploading slug archive"
 curl -X ${_heroku_deploy_blobMethod^^} \
