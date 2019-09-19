@@ -4,7 +4,7 @@ mkdir app
 cp -r ./build ./app
 
 echo "Creating slug archive"
-tar -czf slug.tgz ./app
+tar -czfv slug.tgz ./app
 
 echo "Creating slug object"
 _heroku_deploy_apikey=${HEROKU_API_KEY}
@@ -15,7 +15,7 @@ _heroku_deploy_createSlugResponse=$(curl -X POST \
 -n https://api.heroku.com/apps/${HEROKU_APP_NAME_LIVE}/slugs)
 
 function _heroku_deploy_parseField {
-  echo -ne $2 | grep -o "\"$1\"\s*:\s*\"[^\"]*\"" | head -1 | cut -d '""' -f 4
+    echo -ne $2 | grep -o "\"$1\"\s*:\s*\"[^\"]*\"" | head -1 | cut -d '"' -f 4
 }
 
 _heroku_deploy_blobUrl=$(_heroku_deploy_parseField "url" "'${_heroku_deploy_createSlugResponse}'")
@@ -26,10 +26,7 @@ echo $_heroku_deploy_slugId
 echo $_heroku_deploy_blobUrl
 
 echo "Uploading slug archive"
-curl -X ${_heroku_deploy_blobMethod^^} \
--H "Content-Type:" \
---data-binary @slug.tgz \
-${_heroku_deploy_blobUrl}
+curl -X ${_heroku_deploy_blobMethod^^} -H "Content-Type:" --data-binary @slug.tgz ${_heroku_deploy_blobUrl}
 
 function deployToHeroku { #Args: application name
   curl -X POST \
