@@ -7,9 +7,7 @@ cache:
 script:
   - npm test
   - npm run build
-  - source heroku_deploy.sh
-after_success: deployToHeroku $HEROKU_APP_NAME_LIVE
+  - bash heroku_deploy.sh
 env:
   global:
-    - HEROKU_APP_NAME_STAGE: microservice-study-frontend
     - HEROKU_APP_NAME_LIVE: microservice-study-frontend
