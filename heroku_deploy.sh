@@ -7,11 +7,10 @@ echo "Creating slug archive"
 tar -czf slug.tgz ./app
 
 echo "Creating slug object"
-_heroku_deploy_apikey=`echo "${HEROKU_API_KEY}" | base64`
+_heroku_deploy_apikey=${HEROKU_API_KEY}
 _heroku_deploy_createSlugResponse=$(curl -X POST \
 -H "Content-Type: application/json" \
 -H "Accept: application/vnd.heroku+json; version=3" \
--H "Authorization: Bearer ${_heroku_deploy_apiKey}" \
 -d '{"process_types":{ "web": "node-v0.10.20-linux-x64/bin/node web.js" }}' \
 -n https://api.heroku.com/apps/${HEROKU_APP_NAME_STAGE}/slugs)
 
@@ -32,7 +31,7 @@ function deployToHeroku { #Args: application name
   -H "Accept: application/vnd.heroku+json; version=3" \
   -H "Authorization: Bearer ${_heroku_deploy_apiKey}" \
   -d "{\"slug\":\"${_heroku_deploy_slugId}\"}" \
-  -n https://api.heroku.com/apps/$1/releases
+  -n https://api.heroku.com/apps/releases
 }
 
 echo "Deploying slug to stage"
