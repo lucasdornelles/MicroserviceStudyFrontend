@@ -13,20 +13,17 @@ _heroku_deploy_createSlugResponse=$(curl -X POST \
 -H 'Accept: application/vnd.heroku+json; version=3' \
 -d '{"process_types":{"web":"node-v0.10.20-linux-x64/bin/node web.js"}}' \
 -n https://api.heroku.com/apps/${HEROKU_APP_NAME_LIVE}/slugs)
+echo $_heroku_deploy_createSlugResponse
 
 function _heroku_deploy_parseField {
     echo -ne $2 | grep -o "\"$1\"\s*:\s*\"[^\"]*\"" | head -1 | cut -d '"' -f 4
 }
-
 _heroku_deploy_blobUrl=$(_heroku_deploy_parseField "url" "'${_heroku_deploy_createSlugResponse}'")
 _heroku_deploy_blobMethod=$(_heroku_deploy_parseField "method" "'${_heroku_deploy_createSlugResponse}'")
 _heroku_deploy_slugId=$(_heroku_deploy_parseField "id" "'${_heroku_deploy_createSlugResponse}'")
-echo $_heroku_deploy_blobMethod
-echo $_heroku_deploy_slugId
-echo $_heroku_deploy_blobUrl
 
 echo "Uploading slug archive"
-curl -X ${_heroku_deploy_blobMethod^^} -H "Content-Type:" --data-binary @slug.tgz ${_heroku_deploy_blobUrl}
+curl -X PUT -H "Content-Type:" --data-binary @slug.tgz ${_heroku_deploy_blobUrl}
 
 function deployToHeroku { #Args: application name
   curl -X POST \
