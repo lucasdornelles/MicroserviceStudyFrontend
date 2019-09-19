@@ -4,11 +4,10 @@ node_js:
 cache:
   directories:
     - node_modules
-os: linux
 script:
   - npm test
   - npm run build
-  - source heroku_deploy.sh
+  - bash heroku_deploy.sh
 after_success: deployToHeroku $HEROKU_APP_NAME_LIVE
 env:
   global:
