@@ -1,18 +1,15 @@
 language: node_js
 node_js:
-- 10.16.3
+  - 10.16.3
 cache:
   directories:
     - node_modules
 script:
   - npm test
   - npm run build
-deploy:
-  provider: heroku
-  api_key:
-    secure: oUvA9vtUCGOqcp4Al9SrHCBVLMM0lbwFVQ8OsZV3Z7vwFQI+4d6Nj9GjsEtjzGfdlGFg+rqR+39Ec/gczaJ5HIGbMSZt05LXqkPOXHAag9ViMrqsY2PNYtFhbyZXE1QRv5dtAI5MxNHD4wVwQgQMWCyNN3hN+CF3yQu8c3yBUs0JmYEXpBETOqLNEjsaoX/d/7KEi2VC1YqVVksA8SCCHAhz+HiGJwdQRzXUTp97MAKwclZVKzMoFwjTqOT5/XK7ZvsA5DMUL82wNSGhHn5NDs5tW4f1jqGiSI9Aga2Vv+d4IN9nAHM+4F4zFeOnxPMzhe79QYHeCLCmM5XbgxI1G5Pgw/uqVU43quy6L0PHMJMhunb/DlVPE7c3kjIXPF6F9n/DTM4sQBdSOTBy7cM1+N1gPthKHgov8L8NGyg6OvStBVeyhasA+zBaKgl1LpPsJDZRUhLz1ANgY58KnAYxFRd6PJXfKbKI5qct08Es39iINbLpG01U44zfe70ul4BxppMVA9iAOUepomhxstTO9zuKqtPBzl//zTqSSQBoPTomB+TmFp4LARFuF/CSvtQuLf9ORducITMsED4EphMbC42a84k89cyC9pXNW2muSBb6jnSXW8dAA8j4jO0xUvmE3NKZYviPiILu6W00gDL/BtW16mKXSy9FcP7wN+6AQUs=
-  app: microservice-study-frontend
-  on:
-    repo: lucasdornelles/MicroserviceStudyFrontend
-  skip_cleanup: true
-  project: ./build/
+  - source heroku_deploy.sh
+after_success: deployToHeroku $HEROKU_APP_NAME_LIVE
+env:
+  global:
+    - HEROKU_APP_NAME_STAGE: microservice-study-frontend
+    - HEROKU_APP_NAME_LIVE: microservice-study-frontend
