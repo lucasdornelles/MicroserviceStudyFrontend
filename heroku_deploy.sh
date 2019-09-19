@@ -4,7 +4,7 @@ mkdir app
 cp -r ./build ./app
 
 echo "Creating slug archive"
-tar -czfv slug.tgz ./app
+tar -czf slug.tgz ./app
 
 echo "Creating slug object"
 _heroku_deploy_apikey=${HEROKU_API_KEY}
