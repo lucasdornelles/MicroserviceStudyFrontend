@@ -8,11 +8,12 @@ tar -czf slug.tgz ./app
 
 echo "Creating slug object"
 _heroku_deploy_createSlugResponse=$(curl -X POST \
--H 'Content-Type: application/json' \
--H 'Accept: application/vnd.heroku+json; version=3' \
--H "Authorization: Bearer $HEROKU_API_KEY"
+-H "Content-Type: application/json" \
+-H "Accept: application/vnd.heroku+json; version=3" \
+-H "Authorization: Bearer ${HEROKU_API_KEY}" \
 -d '{"process_types":{"web":"node-v0.10.20-linux-x64/bin/node web.js"}}' \
 -n https://api.heroku.com/apps/${HEROKU_APP_NAME_LIVE}/slugs)
+
 echo $_heroku_deploy_createSlugResponse
 
 function _heroku_deploy_parseField {
