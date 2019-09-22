@@ -1,6 +1,8 @@
 import React from 'react';
+import ProductForm from './ProductForm';
 import logo from './logo.svg';
 import './App.css';
+
 
 function IsProductionCode(props) {
   const developmentEnv = process.env.NODE_ENV === 'development';
@@ -19,7 +21,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <IsProductionCode />      
+        <IsProductionCode />
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -28,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <ProductForm />
       </header>
     </div>
   );
